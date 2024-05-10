@@ -1,0 +1,11 @@
+environment = "developer-access-production"
+iam_role = "roles/storage.objectViewer"
+
+#Google Groups for requestors and approvers
+requestor = "requestor_group@example.com"
+approvers = "gcp_pam_approvers@example.com"
+
+#Group Email addresses for requestors and approvers.
+admin_email_recipients = "pam_admin_group_email@example.com"
+requester_email_recipients = "requestor_group_email@example.com"
+approver_email_recipients = "approver_group_email@example.com"
