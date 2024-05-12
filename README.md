@@ -1,51 +1,43 @@
 # terraform-google-pam
 
-## Description
-### Tagline
-This is an auto-generated module.
-
 ### Detailed
-This module was generated from [terraform-google-module-template](https://github.com/terraform-google-modules/terraform-google-module-template/), which by default generates a module that simply creates a GCS bucket. As the module develops, this README should be updated.
+This module will showcase our new privilege access management product with examples of deployments at the organization, folder, and project levels. This new capability is critical for customers who want to improve their security posture for human access to their Google Cloud environment. The capability can expand to robot accounts, but this demo will focus on human access.
 
 The resources/services/activations/deletions that this module will create/trigger are:
 
-- Create a GCS bucket with the provided name
+- Create PAM Entitlement for either organization, folder, and project.
 
-### PreDeploy
-To deploy this blueprint you must have an active billing account and billing permissions.
-
-## Architecture
-![alt text for diagram](https://www.link-to-architecture-diagram.com)
-1. Architecture description step no. 1
-2. Architecture description step no. 2
-3. Architecture description step no. N
+## Demo Architecture
+![Reference Architecture](diagram/pam.png)
 
 ## Documentation
-- [Hosting a Static Website](https://cloud.google.com/storage/docs/hosting-static-website)
-
-## Deployment Duration
-Configuration: X mins
-Deployment: Y mins
+- [PAM Overview](https://cloud.google.com/iam/docs/pam-overview)
 
 ## Cost
-[Blueprint cost details](https://cloud.google.com/products/calculator?id=02fb0c45-cc29-4567-8cc6-f72ac9024add)
+- No costs
 
 ## Usage
 
-Basic usage of this module is as follows:
+## Usage
+1. Clone repo
+```
+git clone https://github.com/jasonbisson/terraform-google-pam.git
 
-```hcl
-module "pam" {
-  source  = "terraform-google-modules/pam/google"
-  version = "~> 0.1"
-
-  project_id  = "<PROJECT ID>"
-  bucket_name = "gcs-test-bucket"
-}
 ```
 
-Functional examples are included in the
-[examples](./examples/) directory.
+2. Rename and update required variables in terraform.tvfars.template
+```
+Change directory to modules and select the level (organization, folder, and project)  to deploy.
+mv terraform.tfvars.template terraform.tfvars
+#Update required variables
+```
+3. Execute Terraform commands with existing identity (human or service account) to build Vertex Workbench Infrastructure 
+
+```
+terraform init
+terraform plan
+terraform apply
+```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
