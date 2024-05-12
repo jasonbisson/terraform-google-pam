@@ -20,7 +20,7 @@ resource "google_project_service" "cloudresourcemanager" {
   service            = "cloudresourcemanager.googleapis.com"
 }
 
-resource "google_project_service" "cloudresourcemanager" {
+resource "google_project_service" "privilegedaccessmanager" {
   project            = var.project_id
   disable_on_destroy = false
   service            = "privilegedaccessmanager.googleapis.com"
