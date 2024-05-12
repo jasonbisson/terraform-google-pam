@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-/******************************************
-  Run helper module to get generic calculated data
- *****************************************/
-
-
 resource "random_string" "suffix" {
   length  = 4
   special = false
