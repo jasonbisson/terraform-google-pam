@@ -20,7 +20,7 @@ variable "environment" {
 }
 
 variable "organization_number" {
-description = "The folder_number of the entitlement being deployed"
+description = "The organization_number of the entitlement being deployed"
 type = string
 }
 
