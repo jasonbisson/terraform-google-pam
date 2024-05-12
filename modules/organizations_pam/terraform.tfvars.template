@@ -1,5 +1,6 @@
-environment = "business-unit-access-production"
+environment = "platform-access-production"
 iam_role = "roles/storage.objectViewer"
+organization_number = "123456789"
 
 #Google Groups for requestors and approvers
 requestor = "requestor_group@example.com"
