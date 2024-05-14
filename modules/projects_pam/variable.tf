@@ -19,25 +19,42 @@ variable "environment" {
   type        = string
 }
 
-variable "project_id" {
-  description = "The project_id of the entitlement being deployed"
-  type        = string
+variable "project_ids" {
+  type = list(string)
+  # description = "Add a list of project-ids "project1", "project2""
+
+}
+
+variable "requestors" {
+  type = map(string)
+  # default = {
+  #   "project1" = "group-requestors-1"
+  #   "project2" = "group-requestors-2"
+  # }
+}
+
+variable "iam_roles" {
+  type        = map(string)
+  description = "A map of project IDs to their corresponding IAM roles."
+  # default = {
+  #   "project1" = "roles/viewer"
+  #   "project2" = "roles/editor"
+  # }
+}
+
+variable "conditional_bindings" {
+  type        = map(string)
+  description = "A map of project IDs to their IAM condition objects."
+  # default = {
+  #   "project1" = "iam condition expresssion"
+  #   "project2" = "iam condition expresssion"
+  # }
 }
 
 variable "session_duration" {
   description = "Entitlement Session Duration"
   type        = string
   default     = "3600s"
-}
-
-variable "iam_role" {
-  description = "IAM role for Entitlement"
-  type        = string
-}
-
-variable "requestor" {
-  description = "Google Group that will be entitled to submit requests for just in time access"
-  type        = string
 }
 
 variable "admin_email_recipients" {
@@ -67,8 +84,3 @@ variable "require_approver_justification" {
 
 }
 
-variable "conditional_bindings" {
-  description = "List of maps of role and respective conditions, and the members to add the IAM policies/bindings"
-  type        = string
-  default     = ""
-}
