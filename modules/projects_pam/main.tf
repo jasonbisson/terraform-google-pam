@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+
+
 # resource "google_project_service" "cloudresourcemanager" {
 #   project            = var.project_id
 #   disable_on_destroy = false
@@ -32,40 +34,38 @@ resource "random_string" "suffix" {
   upper   = false
 }
 
+
+
 resource "google_privileged_access_manager_entitlement" "entitlement" {
-  provider = google-beta
-  for_each = {
-    for project in var.project_ids :
-    project => {
-      requestor          = var.requestors[project]
-      role               = var.iam_roles[project]
-      condition_bindings = var.conditional_bindings[project]
-    }
-  }
-  entitlement_id       = "${var.environment}-${random_string.suffix.result}-${each.key}"
+  provider             = google-beta
+  for_each             = { for ent in var.entitlements : ent.project => ent }
+  entitlement_id       = "${var.environment}-${each.value.project}-${random_string.suffix.result}"
   location             = "global"
   max_request_duration = var.session_duration
-  parent               = "projects/${each.key}"
+  parent               = "projects/${each.value.project}"
   requester_justification_config {
     unstructured {}
   }
   eligible_users {
-    principals = ["group:${each.value.requestor}"]
+    principals = [for member in each.value.members : member]
   }
   privileged_access {
     gcp_iam_access {
       role_bindings {
         role                 = each.value.role
-        condition_expression = each.value.condition_bindings
+        condition_expression = each.value.expression
       }
-      resource      = "//cloudresourcemanager.googleapis.com/projects/${each.key}"
+      resource      = "//cloudresourcemanager.googleapis.com/projects/${each.value.project}"
       resource_type = "cloudresourcemanager.googleapis.com/Project"
     }
   }
+
+
   additional_notification_targets {
     admin_email_recipients     = [var.admin_email_recipients]
     requester_email_recipients = [var.requester_email_recipients]
   }
+
   approval_workflow {
     manual_approvals {
       require_approver_justification = var.require_approver_justification
@@ -78,4 +78,5 @@ resource "google_privileged_access_manager_entitlement" "entitlement" {
       }
     }
   }
+
 }

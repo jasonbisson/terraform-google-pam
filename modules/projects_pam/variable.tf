@@ -19,42 +19,33 @@ variable "environment" {
   type        = string
 }
 
-variable "project_ids" {
-  type = list(string)
-  # description = "Add a list of project-ids "project1", "project2""
 
-}
-
-variable "requestors" {
-  type = map(string)
-  # default = {
-  #   "project1" = "group-requestors-1"
-  #   "project2" = "group-requestors-2"
-  # }
-}
-
-variable "iam_roles" {
-  type        = map(string)
-  description = "A map of project IDs to their corresponding IAM roles."
-  # default = {
-  #   "project1" = "roles/viewer"
-  #   "project2" = "roles/editor"
-  # }
-}
-
-variable "conditional_bindings" {
-  type        = map(string)
-  description = "A map of project IDs to their IAM condition objects."
-  # default = {
-  #   "project1" = "iam condition expresssion"
-  #   "project2" = "iam condition expresssion"
-  # }
+variable "entitlements" {
+  description = "Entitlements for each project"
+  type = list(object({
+    project    = string
+    role       = string
+    expression = string
+    members    = list(string)
+  }))
 }
 
 variable "session_duration" {
   description = "Entitlement Session Duration"
   type        = string
   default     = "3600s"
+}
+
+variable "approvers" {
+  description = "Google group email that containers all the approvers. The group value is hard coded to enforce best practices"
+  type        = string
+}
+
+variable "require_approver_justification" {
+  description = "Require justification for approver"
+  type        = string
+  default     = "true"
+
 }
 
 variable "admin_email_recipients" {
@@ -70,17 +61,5 @@ variable "requester_email_recipients" {
 variable "approver_email_recipients" {
   description = "List of approver emails to be notified"
   type        = string
-}
-
-variable "approvers" {
-  description = "Google group email that containers all the approvers. The group value is hard coded to enforce best practices"
-  type        = string
-}
-
-variable "require_approver_justification" {
-  description = "Require justification for approver"
-  type        = string
-  default     = "true"
-
 }
 
