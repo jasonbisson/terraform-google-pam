@@ -14,30 +14,21 @@
  * limitations under the License.
  */
 
-variable "environment" {
-  description = "Environment tag to help identify the entire deployment"
-  type        = string
-}
-
-variable "folder_number" {
-  description = "The folder_number of the entitlement being deployed"
-  type        = string
+variable "entitlements" {
+  description = "Entitlements for each folder"
+  type = list(object({
+    folder            = string
+    entitlement_prefix = string
+    role               = string
+    expression         = string
+    members            = list(string)
+  }))
 }
 
 variable "session_duration" {
   description = "Entitlement Session Duration"
   type        = string
   default     = "3600s"
-}
-
-variable "iam_role" {
-  description = "IAM role for Entitlement"
-  type        = string
-}
-
-variable "requestor" {
-  description = "Google group that will be entitled to submit requests for just in time access"
-  type        = string
 }
 
 variable "admin_email_recipients" {
@@ -65,10 +56,4 @@ variable "require_approver_justification" {
   type        = string
   default     = "true"
 
-}
-
-variable "conditional_bindings" {
-  description = "List of maps of role and respective conditions, and the members to add the IAM policies/bindings"
-  type        = string
-  default     = ""
 }

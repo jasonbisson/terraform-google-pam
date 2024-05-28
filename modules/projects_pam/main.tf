@@ -16,25 +16,25 @@
 
 
 
-# resource "google_project_service" "cloudresourcemanager" {
-#   project            = var.project_id
-#   disable_on_destroy = false
-#   service            = "cloudresourcemanager.googleapis.com"
-# }
+resource "google_project_service" "cloudresourcemanager" {
+  for_each           = { for idx, entitlement in var.entitlements : idx => entitlement }
+  project            = each.value.project
+  disable_on_destroy = false
+  service            = "cloudresourcemanager.googleapis.com"
+}
 
-# resource "google_project_service" "privilegedaccessmanager" {
-#   project            = var.project_id
-#   disable_on_destroy = false
-#   service            = "privilegedaccessmanager.googleapis.com"
-# }
+resource "google_project_service" "privilegedaccessmanager" {
+  for_each           = { for idx, entitlement in var.entitlements : idx => entitlement }
+  project            = each.value.project
+  disable_on_destroy = false
+  service            = "privilegedaccessmanager.googleapis.com"
+}
 
 resource "random_string" "suffix" {
   length  = 4
   special = false
   upper   = false
 }
-
-
 
 resource "google_privileged_access_manager_entitlement" "entitlement" {
   provider             = google-beta
