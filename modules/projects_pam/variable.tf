@@ -24,6 +24,7 @@ variable "entitlements" {
   description = "Entitlements for each project"
   type = list(object({
     project    = string
+    entitlement_prefix = string
     role       = string
     expression = string
     members    = list(string)

@@ -38,8 +38,8 @@ resource "random_string" "suffix" {
 
 resource "google_privileged_access_manager_entitlement" "entitlement" {
   provider             = google-beta
-  for_each             = { for ent in var.entitlements : ent.project => ent }
-  entitlement_id       = "${var.environment}-${each.value.project}-${random_string.suffix.result}"
+  for_each             = { for idx, entitlement in var.entitlements : idx => entitlement } # <-- Loop through entitlements
+  entitlement_id       = "${each.value.entitlement_prefix}-${random_string.suffix.result}" # Use prefix from entitlement
   location             = "global"
   max_request_duration = var.session_duration
   parent               = "projects/${each.value.project}"
