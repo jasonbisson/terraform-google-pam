@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-variable "environment" {
-  description = "Environment tag to help identify the entire deployment"
-  type        = string
-}
-
-
 variable "entitlements" {
   description = "Entitlements for each project"
   type = list(object({
