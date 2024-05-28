@@ -1,9 +1,22 @@
-environment = "platform-access-production"
-iam_role = "roles/storage.objectViewer"
-organization_number = "123456789"
+entitlements = [
+  {
+    organization    = "your-organization-number"
+    entitlement_prefix = "developer-access"
+    role       = "roles/storage.objectViewer"
+    expression = "request.time > timestamp('09:00:00') && request.time < timestamp('17:00:00')"
+    members    = ["group:group@example.com", "user:user@example.com"]
+  },
+
+  {
+    organization    = "another-or-same-organization-number"
+    entitlement_prefix = "platform-access"
+    role       = "roles/storage.admin"
+    expression = ""
+    members    = ["group:group@example.com"]
+  }
+]
 
 #Google Groups for requestors and approvers
-requestor = "requestor_group@example.com"
 approvers = "gcp_pam_approvers@example.com"
 
 #Group Email addresses for requestors and approvers.
