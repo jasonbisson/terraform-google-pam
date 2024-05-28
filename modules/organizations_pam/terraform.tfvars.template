@@ -16,7 +16,7 @@ entitlements = [
   }
 ]
 
-#Google Groups for requestors and approvers
+#Google Group for approvers and might move to entitlements variable to make flexible
 approvers = "gcp_pam_approvers@example.com"
 
 #Group Email addresses for requestors and approvers.
