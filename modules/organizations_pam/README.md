@@ -45,12 +45,8 @@ terraform apply
 | admin\_email\_recipients | List of Admin emails to be notified | `string` | n/a | yes |
 | approver\_email\_recipients | List of approver emails to be notified | `string` | n/a | yes |
 | approvers | Google group email that containers all the approvers. The group value is hard coded to enforce best practices | `string` | n/a | yes |
-| conditional\_bindings | List of maps of role and respective conditions, and the members to add the IAM policies/bindings | `string` | `""` | no |
-| environment | Environment tag to help identify the entire deployment | `string` | n/a | yes |
-| iam\_role | IAM role for Entitlement | `string` | n/a | yes |
-| organization\_number | The folder\_number of the entitlement being deployed | `string` | n/a | yes |
+| entitlements | Entitlements for each folder | <pre>list(object({<br>    organization       = string<br>    entitlement_prefix = string<br>    role               = string<br>    expression         = string<br>    members            = list(string)<br>  }))</pre> | n/a | yes |
 | requester\_email\_recipients | List of requestor emails to be notified | `string` | n/a | yes |
-| requestor | Google group that will be entitled to submit requests for just in time access | `string` | n/a | yes |
 | require\_approver\_justification | Require justification for approver | `string` | `"true"` | no |
 | session\_duration | Entitlement Session Duration | `string` | `"3600s"` | no |
 
