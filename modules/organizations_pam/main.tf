@@ -32,7 +32,7 @@ resource "google_privileged_access_manager_entitlement" "entitlement" {
     unstructured {}
   }
   eligible_users {
-    principals = [for member in each.value.members : member]
+    principals = [for eligible_users in each.value.eligible_users : eligible_users]
   }
   privileged_access {
     gcp_iam_access {
@@ -58,7 +58,7 @@ resource "google_privileged_access_manager_entitlement" "entitlement" {
         approvals_needed          = 1
         approver_email_recipients = [var.approver_email_recipients]
         approvers {
-          principals = ["group:${var.approvers}"]
+          principals = [for approvers in each.value.approvers : approvers]
         }
       }
     }

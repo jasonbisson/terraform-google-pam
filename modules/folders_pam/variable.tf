@@ -15,13 +15,14 @@
  */
 
 variable "entitlements" {
-  description = "Entitlements for each folder"
+  description = "Entitlements for each project"
   type = list(object({
     folder            = string
     entitlement_prefix = string
     role               = string
     expression         = string
-    members            = list(string)
+    eligible_users     = list(string)
+    approvers          = list(string)
   }))
 }
 
@@ -43,11 +44,6 @@ variable "requester_email_recipients" {
 
 variable "approver_email_recipients" {
   description = "List of approver emails to be notified"
-  type        = string
-}
-
-variable "approvers" {
-  description = "Google group email that containers all the approvers. The group value is hard coded to enforce best practices"
   type        = string
 }
 
