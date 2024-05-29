@@ -44,8 +44,7 @@ terraform apply
 |------|-------------|------|---------|:--------:|
 | admin\_email\_recipients | List of Admin emails to be notified | `string` | n/a | yes |
 | approver\_email\_recipients | List of approver emails to be notified | `string` | n/a | yes |
-| approvers | Google group email that containers all the approvers. The group value is hard coded to enforce best practices | `string` | n/a | yes |
-| entitlements | Entitlements for each project | <pre>list(object({<br>    project            = string<br>    entitlement_prefix = string<br>    role               = string<br>    expression         = string<br>    members            = list(string)<br>  }))</pre> | n/a | yes |
+| entitlements | Entitlements for each project | <pre>list(object({<br>    project            = string<br>    entitlement_prefix = string<br>    role               = string<br>    expression         = string<br>    eligible_users     = list(string)<br>    approvers          = list(string)<br>  }))</pre> | n/a | yes |
 | requester\_email\_recipients | List of requestor emails to be notified | `string` | n/a | yes |
 | require\_approver\_justification | Require justification for approver | `string` | `"true"` | no |
 | session\_duration | Entitlement Session Duration | `string` | `"3600s"` | no |
