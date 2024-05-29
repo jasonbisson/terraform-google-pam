@@ -21,7 +21,8 @@ variable "entitlements" {
     entitlement_prefix = string
     role               = string
     expression         = string
-    members            = list(string)
+    eligible_users     = list(string)
+    approvers          = list(string)
   }))
 }
 
@@ -29,11 +30,6 @@ variable "session_duration" {
   description = "Entitlement Session Duration"
   type        = string
   default     = "3600s"
-}
-
-variable "approvers" {
-  description = "Google group email that containers all the approvers. The group value is hard coded to enforce best practices"
-  type        = string
 }
 
 variable "require_approver_justification" {
