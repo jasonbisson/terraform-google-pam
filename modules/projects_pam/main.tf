@@ -28,6 +28,14 @@ resource "google_project_service" "privilegedaccessmanager" {
   service            = "privilegedaccessmanager.googleapis.com"
 }
 
+
+resource "google_project_service" "aiplatform" {
+  for_each           = { for idx, entitlement in var.entitlements : idx => entitlement }
+  project            = each.value.project
+  disable_on_destroy = false
+  service            = "aiplatform.googleapis.com"
+}
+
 resource "random_string" "suffix" {
   length  = 4
   special = false
